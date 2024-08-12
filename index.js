@@ -30,13 +30,6 @@ app.get("/api/:data",function(req,res){
         "utc":date.toUTCString()
       })
     }
-    else if(data.length ==0){
-      date = new Date.now()
-      res.json({
-        "unix":date.getTime(),
-        "utc":date.toUTCString()
-      })
-    }
     else{
       date = new Date(Number(data))
       res.json({
