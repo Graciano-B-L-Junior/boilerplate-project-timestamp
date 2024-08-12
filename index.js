@@ -1,5 +1,6 @@
 // index.js
 // where your node app starts
+require('dotenv').config()
 
 // init project
 var express = require('express');
@@ -17,6 +18,30 @@ app.use(express.static('public'));
 app.get("/", function (req, res) {
   res.sendFile(__dirname + '/views/index.html');
 });
+
+app.get("/api/:data",function(req,res){
+  let data = req.params.data
+  try{
+    let date = ""
+    if (data.length <= 10){
+      date = new Date(data)
+      res.json({
+        "unix":date.getTime(),
+        "utc":date.toUTCString()
+      })
+    }
+    else{
+      date = new Date(Number(data))
+      res.json({
+        "unix":date.getTime(),
+        "utc":date.toUTCString()
+      })
+    }
+  }catch(e){
+
+    res.status(404).json({"error":"failed!"})
+  }
+})
 
 
 // your first API endpoint... 
