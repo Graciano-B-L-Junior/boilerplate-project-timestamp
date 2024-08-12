@@ -30,6 +30,13 @@ app.get("/api/:data",function(req,res){
         "utc":date.toUTCString()
       })
     }
+    else if(data.length ==0){
+      date = new Date.now()
+      res.json({
+        "unix":date.getTime(),
+        "utc":date.toUTCString()
+      })
+    }
     else{
       date = new Date(Number(data))
       res.json({
@@ -39,7 +46,7 @@ app.get("/api/:data",function(req,res){
     }
   }catch(e){
 
-    res.status(404).json({"error":"failed!"})
+    res.status(404).json({"error":"Invalid Date"})
   }
 })
 
